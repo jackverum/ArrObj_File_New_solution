@@ -1,0 +1,21 @@
+
+    {
+        "files": [
+            {"name": "file1", "base": true}, 
+            {"name": "file2", "base": false}, 
+            {"name": "file3", "base": true}, 
+            {"name": "file4", "base": true}
+        ],
+        "mapDays": [
+            { "workDay": 1, "calendarDay": 1},
+            { "workDay": 2, "calendarDay": 2},
+            { "workDay": 2, "calendarDay": 3},
+            { "workDay": 3, "calendarDay": 4},
+            { "workDay": 3, "calendarDay": 5},
+            { "workDay": 3, "calendarDay": 6},
+            { "workDay": 4, "calendarDay": 7},
+            { "workDay": 5, "calendarDay": 8}
+        ]
+    }
+
+    
