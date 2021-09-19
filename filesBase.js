@@ -11,11 +11,17 @@ let url = 'files.json';
                 let FILES = json.files;
                 // console.log(FILES); 
                 FILES.map(fileObj => arr.push(fileObj))
-                // console.log(arr);
+                for (const key of arr) {
+                    let data = [];
+                    key.data = data
+                }
                 let DAYS = json.mapDays;
                 // console.log(DAYS);
                 // let getNumDays = ;
-                let getUniqueDays = [...new Set(DAYS.map(itemDay => itemDay.workDay))];
+                let getUniqueDays = [...new Set(DAYS.map(itemDay => {
+// productDays(itemDay)
+                    return itemDay.workDay;
+                }))];
                 // console.log(getUniqueDays);
                 getUniqueDays.forEach(itemNum => {
                     let filterDays = DAYS.filter(key => key.workDay == itemNum);
@@ -35,7 +41,6 @@ let url = 'files.json';
                     // console.log(getCalendArr);
                     // arr.push(getCalendArr)
                     // console.log(arr);
-                    
                     // let data = [
                     //     arrCalend
                     // ]
@@ -44,57 +49,88 @@ let url = 'files.json';
                     // let arr = [{name: 'width', value: 300},{name: 'height', value: 100}];
                     let obj = {};
                     arrCalend.forEach(pair => {
+                        // console.log(pair);
                         // obj[pair.field] = pair.calendarDay
                         // console.log([pair.field]);
                         // console.log(pair.calendarDay);
                     })
                     // console.log(obj);
-
-                    arr.forEach(valFileObj => {
-                        // console.log(valFileObj);
-
-
-                        for (const key in valFileObj) {
-                            // console.log(valFileObj);
-
-                        }
-                    })
                     // console.log(dataObj);
                 })
-
+                arr.forEach(valFileObj => {
+                    valFileObj.data.push(arrCalend);
+                    // obj = Object.assign(valFileObj, arrCalend);
+                    // console.log(obj);
+                    // for (const key in valFileObj) {
+                    //     console.log(valFileObj);
+                    // }
+                })
                 console.log(arrCalend);
+                console.log(arr);
 
 
 let wrapElem = document.querySelector('.wrap');
+arr.map(item => {
+    console.log(item);
+    console.log(item.name);
+    console.log(item.data[0][0].field);
+    productConstruct(item.name, item.base, item.data[0][0].field)
+    // console.log(item.data[0][0].field)  // workDay1
+});
 
-function productConstruct() {
+function productConstruct(file, base, day) {
     let prod = document.createElement('div');
     prod.classList.add('product');
     prod.innerHTML = `
-        <div class="product_file">file1</div>
+        <div class="product_file">${file}</div>
         <div class="product_base">
-            <div class="product_base-tile">base</div>
+            <div class="product_base-tile">${base}</div>
             <div class="product_base-content">
                 <div class="product_days">
                     <div class="days_period">day 1 - day 5</div>
-                    <div class="days_count">day 1</div>
-                    <div class="days_count">day 2</div>
-                    <div class="days_count">day 3</div>
-                    <div class="days_count">day 4</div>
-                    <div class="days_count">day 5</div>
+                    
                 </div>
                 <div class="product_calendar">
                     <div class="calendar_period">calendar day 1 - calendar day 5</div>
-                    <div class="calendar_count">calendar day 1</div>
-                    <div class="calendar_count">calendar day 2</div>
-                    <div class="calendar_count">calendar day 3</div>
-                    <div class="calendar_count">calendar day 4</div>
-                    <div class="calendar_count">calendar day 5</div>
+               
                 </div>
             </div>
         </div>
     `;
+    wrapElem.append(prod);
+};
+
+// console.log(proDays.querySelectorAll('.'));
+
+function productDays(day) {
+    let proDays = document.querySelector('.product_days');
+    let dayCount = document.createElement('div');
+    dayCount.classList.add('days_count');
+    dayCount.innerHTML = `  
+            <div class="days_count">day ${day}</div>
+    `;
+    proDays.prepend(dayCount);
 }
+function productCalendar(day) {
+    let proCalend = document.querySelector('.product_calendar');
+    let dayCount = document.createElement('div');
+    dayCount.classList.add('days_count');
+    dayCount.innerHTML = `  
+            <div class="calendar_count">calendar day ${day}</div>
+    `;
+    proCalend.append(dayCount);
+}
+
+
+
+// ****************************************************************
+// ****************************************************************
+// ****************************************************************
+// ****************************************************************
+// ****************************************************************
+// ****************************************************************
+
+
 
 
                 let fileArr = [];
@@ -429,3 +465,29 @@ let obj2 = [
 //     // }
         
 //     // export const fetchFunction = fetchFunc.getUrl;
+
+
+// prod.innerHTML = `
+//         <div class="product_file">${file}</div>
+//         <div class="product_base">
+//             <div class="product_base-tile">${base}</div>
+//             <div class="product_base-content">
+//                 <div class="product_days">
+//                     <div class="days_period">day 1 - day 5</div>
+//                     <div class="days_count">day 1</div>
+//                     <div class="days_count">day 2</div>
+//                     <div class="days_count">day 3</div>
+//                     <div class="days_count">day 4</div>
+//                     <div class="days_count">day 5</div>
+//                 </div>
+//                 <div class="product_calendar">
+//                     <div class="calendar_period">calendar day 1 - calendar day 5</div>
+//                     <div class="calendar_count">calendar day 1</div>
+//                     <div class="calendar_count">calendar day 2</div>
+//                     <div class="calendar_count">calendar day 3</div>
+//                     <div class="calendar_count">calendar day 4</div>
+//                     <div class="calendar_count">calendar day 5</div>
+//                 </div>
+//             </div>
+//         </div>
+//     `;
