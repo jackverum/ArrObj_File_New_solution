@@ -1,18 +1,119 @@
 // //This is HW
 // console.log(111);
-let obj = [];
+let obj = {};
+let arr = [];
+let arrCalend = [];
 let url = 'files.json';
         let responce = fetch(url)
         responce.then((responce) => responce.json())
             .then(json => {
                 console.log(json);
+                let FILES = json.files;
+                // console.log(FILES); 
+                FILES.map(fileObj => arr.push(fileObj))
+                // console.log(arr);
+                let DAYS = json.mapDays;
+                // console.log(DAYS);
+                // let getNumDays = ;
+                let getUniqueDays = [...new Set(DAYS.map(itemDay => itemDay.workDay))];
+                // console.log(getUniqueDays);
+                getUniqueDays.forEach(itemNum => {
+                    let filterDays = DAYS.filter(key => key.workDay == itemNum);
+                    // let getCalendArr = filterDays.map(day => ({workDay: itemNum, calendar: 'calendarDay: ' + day.calendarDay}));
+                    let getCalendArr = filterDays.map(day => {
+                        return ('calendarDay: ' + day.calendarDay)
+
+                        // let dataObj = {
+                        //     data: [
+                        //         {workDay: itemNum, calendarDay: [day.calendarDay]}
+                        //     ]
+                        // }
+                        // return dataObj;
+
+                    });
+                    arrCalend.push({field: 'workDay ' + itemNum, calendarDay:  getCalendArr})
+                    // console.log(getCalendArr);
+                    // arr.push(getCalendArr)
+                    // console.log(arr);
+                    
+                    // let data = [
+                    //     arrCalend
+                    // ]
+                    // console.log('data', data);
+
+                    // let arr = [{name: 'width', value: 300},{name: 'height', value: 100}];
+                    let obj = {};
+                    arrCalend.forEach(pair => {
+                        // obj[pair.field] = pair.calendarDay
+                        // console.log([pair.field]);
+                        // console.log(pair.calendarDay);
+                    })
+                    // console.log(obj);
+
+                    arr.forEach(valFileObj => {
+                        // console.log(valFileObj);
+
+
+                        for (const key in valFileObj) {
+                            // console.log(valFileObj);
+
+                        }
+                    })
+                    // console.log(dataObj);
+                })
+
+                console.log(arrCalend);
+
+
+let wrapElem = document.querySelector('.wrap');
+
+function productConstruct() {
+    let prod = document.createElement('div');
+    prod.classList.add('product');
+    prod.innerHTML = `
+        <div class="product_file">file1</div>
+        <div class="product_base">
+            <div class="product_base-tile">base</div>
+            <div class="product_base-content">
+                <div class="product_days">
+                    <div class="days_period">day 1 - day 5</div>
+                    <div class="days_count">day 1</div>
+                    <div class="days_count">day 2</div>
+                    <div class="days_count">day 3</div>
+                    <div class="days_count">day 4</div>
+                    <div class="days_count">day 5</div>
+                </div>
+                <div class="product_calendar">
+                    <div class="calendar_period">calendar day 1 - calendar day 5</div>
+                    <div class="calendar_count">calendar day 1</div>
+                    <div class="calendar_count">calendar day 2</div>
+                    <div class="calendar_count">calendar day 3</div>
+                    <div class="calendar_count">calendar day 4</div>
+                    <div class="calendar_count">calendar day 5</div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 
                 let fileArr = [];
                 let baseArr = [];
                 json.files.forEach(fileObj => { //  {"name": "file1", "base": true}, 
-                    let file = fileArr.push(fileObj.name);
-                    let base = fileArr.push(fileObj.base);
-                    return file, base;
+                    // fileArr.push(fileObj.name);
+                    // baseArr.push(fileObj.base);
+                    // console.log(fileArr);
+                    // console.log();
+                    fileArr.map(item => {
+                        // obj.name = item;
+                        // console.log(obj);
+                       
+                        baseArr.forEach(item => {
+                            // obj.base = item;
+                           
+                        })
+                    })
+                    
                     // console.log(file);
                     // console.log(base);
                 });
@@ -21,26 +122,27 @@ let url = 'files.json';
                 //     console.log(baseArr.push(baseObj.base));
 
                 // });
-                console.log(fileArr);
-                console.log(baseArr);
+                // console.log(fileArr);
+                // console.log(baseArr);
                 fileArr.map(item => {
-                    let consrtFile = obj.push({name: item,})
-                    // console.log(consrtFile);
-                    return consrtFile;
+                    // let consrtFile = obj.push({name: item,})
+                    // // console.log(consrtFile);
+                    // return consrtFile;
                 })
-                console.log('fileArr', fileArr);
+                // console.log('fileArr', fileArr);
                 baseArr.map(item => {
-                    let consrtBase = obj.push({base: item,})
-                    // console.log(consrtFile);
-                    return consrtBase;
+                    // let consrtBase = obj.push({base: item,})
+                    // // console.log(consrtFile);
+                    // return consrtBase;
                 })
                 // let copy = Object.assign({}, fileArr, baseArr)
                 // console.log(copy);
 
                 // obj = Object.assign( fileArr, baseArr)
 
-                console.log(obj);
+                // console.log(obj);
             });
+            console.log(obj);
 
 
 let obj1 = [
