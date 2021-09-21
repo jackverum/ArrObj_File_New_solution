@@ -58,27 +58,57 @@ let url = 'files.json';
                     // console.log(dataObj);
                 })
                 arr.forEach(valFileObj => {
-                    valFileObj.data.push(arrCalend);
+                    // valFileObj.data.push(arrCalend); // валидний вариант
+                    valFileObj.data = arrCalend; 
+                    // let val = valFileObj.data.push(arrCalend);
+                    // console.log(val);
+                    // let [simpleArrData] = [...valFileObj.data];
+                    // console.log(simpleArrData);
+                    // valFileObj.data.push(simpleArrData);
+
                     // obj = Object.assign(valFileObj, arrCalend);
                     // console.log(obj);
                     // for (const key in valFileObj) {
                     //     console.log(valFileObj);
                     // }
                 })
-                console.log(arrCalend);
-                console.log(arr);
+                console.log('arrCalend', arrCalend);
+                console.log('arr', arr);
 
 
 let wrapElem = document.querySelector('.wrap');
 arr.map(item => {
     console.log(item);
     console.log(item.name);
-    console.log(item.data[0][0].field);
-    productConstruct(item.name, item.base, item.data[0][0].field)
+    console.log(item.data);
+    // console.log(item.data[0][0].field);
+    productConstruct(item.name, item.base)
+    item.data.map(workDay => {
+        console.log(workDay.field)
+        productDays(workDay.field.slice(-1));
+        productCalendar(workDay.calendarDay);
+        
+    });
+    // productDays(item.data.field)
+    // console.log(item.data.map(item => console.log(item)));
+    
     // console.log(item.data[0][0].field)  // workDay1
 });
+arr.map(data => {
+console.log(data);
+// productDays(data.slice(-1))
+    for (const key in data) {
+        // if (Object.hasOwnProperty.call(data, key)) {
+        //     const element = data[key];
+        //     console.log(element);
+        // }
+        // console.log(key);
+        // console.log(data[key][field]);
+        // return console.log(data == data[key]);
+    }
+});
 
-function productConstruct(file, base, day) {
+function productConstruct(file, base) {
     let prod = document.createElement('div');
     prod.classList.add('product');
     prod.innerHTML = `
@@ -103,20 +133,21 @@ function productConstruct(file, base, day) {
 // console.log(proDays.querySelectorAll('.'));
 
 function productDays(day) {
+    console.log(day);
     let proDays = document.querySelector('.product_days');
     let dayCount = document.createElement('div');
     dayCount.classList.add('days_count');
     dayCount.innerHTML = `  
             <div class="days_count">day ${day}</div>
     `;
-    proDays.prepend(dayCount);
+    proDays.append(dayCount);
 }
 function productCalendar(day) {
     let proCalend = document.querySelector('.product_calendar');
     let dayCount = document.createElement('div');
     dayCount.classList.add('days_count');
     dayCount.innerHTML = `  
-            <div class="calendar_count">calendar day ${day}</div>
+            <div class="calendar_count"> ${day}</div>
     `;
     proCalend.append(dayCount);
 }
