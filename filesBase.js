@@ -1,19 +1,21 @@
 // //This is HW
 // console.log(111);
-let obj = {};
+// let obj = {};
 let arr = [];
 let arrCalend = [];
 let url = 'files.json';
-        let responce = fetch(url)
+        const responce = fetch(url)
         responce.then((responce) => responce.json())
             .then(json => {
                 console.log(json);
-                let FILES = json.files;
-                // console.log(FILES); 
-                FILES.map(fileObj => arr.push(fileObj))
+                // const FILES = json.files; // {name, base}
+                arr = json.files; // {name, base}
+                // console.log(FILES);
+                // debugger 
+                // FILES.map(fileObj => arr.push(fileObj))
                 for (const key of arr) {
                     let data = [];
-                    key.data = data
+                    key.data = data;
                 }
                 let DAYS = json.mapDays;
                 // console.log(DAYS);
@@ -77,18 +79,41 @@ let url = 'files.json';
 
 
 let wrapElem = document.querySelector('.wrap');
+const productHTML = `
+    <div class="product_file">{file}</div>
+    <div class="product_base">
+        <div class="product_base-tile">{base}</div>
+        <div class="product_base-content">
+            <div class="product_days">
+                <div class="days_period">day 1 - day 5</div>
+                {day}
+               
+            </div>
+            <div class="product_calendar">
+                <div class="calendar_period">calendar day 1 - calendar day 5</div>
+                {calendarDay}
+                
+            </div>
+        </div>
+    </div>
+`;
+{/* <div class="calendar_count">{calendarDay}</div>
+                <div class="calendar_count">{calendarDay}</div>
+                <div class="calendar_count">{calendarDay}</div>
+                <div class="calendar_count">{calendarDay}</div>
+                <div class="calendar_count">{calendarDay}</div> */}
 arr.map(item => {
-    console.log(item);
-    console.log(item.name);
-    console.log(item.data);
-    // console.log(item.data[0][0].field);
-    productConstruct(item.name, item.base)
-    item.data.map(workDay => {
-        console.log(workDay.field)
-        productDays(workDay.field.slice(-1));
-        productCalendar(workDay.calendarDay);
+    // console.log(item);
+    // console.log(item.name);
+    // console.log(item.data);
+    // // console.log(item.data[0][0].field);
+    productConstruct(item)
+    // item.data.map(workDay => {
+    //     console.log(workDay.field)
+    //     productDays(workDay.field.slice(-1));
+    //     productCalendar(workDay.calendarDay);
         
-    });
+    // });
     // productDays(item.data.field)
     // console.log(item.data.map(item => console.log(item)));
     
@@ -108,25 +133,20 @@ console.log(data);
     }
 });
 
-function productConstruct(file, base) {
+
+function productConstruct(file) {
+    let _newProdHTML = productHTML;
+    // debugger 
+    console.log(file.data);
+    _newProdHTML = _newProdHTML.replace('{file}', file.name);
+    _newProdHTML = _newProdHTML.replace('{base}', file.base);
+    _newProdHTML = _newProdHTML.replace('{day}', createDaysHTML(file.data));
+    // debugger
+    _newProdHTML = _newProdHTML.replace('{calendarDay}', createCalendarHTML(file.data));
+    // console.log(_newProdHTML);
     let prod = document.createElement('div');
     prod.classList.add('product');
-    prod.innerHTML = `
-        <div class="product_file">${file}</div>
-        <div class="product_base">
-            <div class="product_base-tile">${base}</div>
-            <div class="product_base-content">
-                <div class="product_days">
-                    <div class="days_period">day 1 - day 5</div>
-                    
-                </div>
-                <div class="product_calendar">
-                    <div class="calendar_period">calendar day 1 - calendar day 5</div>
-               
-                </div>
-            </div>
-        </div>
-    `;
+    prod.innerHTML = _newProdHTML;
     wrapElem.append(prod);
 };
 
@@ -152,6 +172,32 @@ function productCalendar(day) {
     proCalend.append(dayCount);
 }
 
+function createDaysHTML(wokDay) {
+    let workDaysHTML = '';
+    wokDay.forEach(workDay => {
+        console.log(workDay);
+        //     productDays(workDay.field.slice(-1));
+        //     productCalendar(workDay.calendarDay);
+        workDaysHTML += `
+            <div class="days_count">day ${workDay.field.slice(-1)}</div>
+        `;
+        });
+        return workDaysHTML;
+      
+}
+
+function createCalendarHTML(calendar) {
+    let calendDayHTML = '';
+    console.log(calendar);
+    calendar.forEach(calendarDay => {
+        console.log(calendarDay.calendarDay[0]);
+        calendDayHTML += `
+            <div class="calendar_count"> ${calendarDay.calendarDay}</div>
+        
+        `;
+        return calendDayHTML;
+    });
+}
 
 
 // ****************************************************************
@@ -209,7 +255,7 @@ function productCalendar(day) {
 
                 // console.log(obj);
             });
-            console.log(obj);
+            // console.log(obj);
 
 
 let obj1 = [
