@@ -76,7 +76,7 @@ let url = 'files.json';
                 })
                 console.log('arrCalend', arrCalend);
                 console.log('arr', arr);
-
+            })
 
 let wrapElem = document.querySelector('.wrap');
 const productHTML = `
