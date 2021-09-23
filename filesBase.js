@@ -1,6 +1,3 @@
-// //This is HW
-// console.log(111);
-// let obj = {};
 let arr = [];
 let arrCalend = [];
 let url = 'files.json';
@@ -10,73 +7,22 @@ let url = 'files.json';
                 console.log(json);
                 // const FILES = json.files; // {name, base}
                 arr = json.files; // {name, base}
-                // console.log(FILES);
-                // debugger 
                 // FILES.map(fileObj => arr.push(fileObj))
                 for (const key of arr) {
                     let data = [];
                     key.data = data;
                 }
                 let DAYS = json.mapDays;
-                // console.log(DAYS);
-                // let getNumDays = ;
-                let getUniqueDays = [...new Set(DAYS.map(itemDay => {
-// productDays(itemDay)
-                    return itemDay.workDay;
-                }))];
-                // console.log(getUniqueDays);
+                let getUniqueDays = [...new Set(DAYS.map(itemDay => itemDay.workDay))];
+         
                 getUniqueDays.forEach(itemNum => {
                     let filterDays = DAYS.filter(key => key.workDay == itemNum);
-                    // let getCalendArr = filterDays.map(day => ({workDay: itemNum, calendar: 'calendarDay: ' + day.calendarDay}));
-                    let getCalendArr = filterDays.map(day => {
-                        return ('calendarDay: ' + day.calendarDay)
-
-                        // let dataObj = {
-                        //     data: [
-                        //         {workDay: itemNum, calendarDay: [day.calendarDay]}
-                        //     ]
-                        // }
-                        // return dataObj;
-
-                    });
+                    let getCalendArr = filterDays.map(day => ('calendarDay: ' + day.calendarDay));
                     arrCalend.push({field: 'workDay ' + itemNum, calendarDay:  getCalendArr})
-                    // console.log(getCalendArr);
-                    // arr.push(getCalendArr)
-                    // console.log(arr);
-                    // let data = [
-                    //     arrCalend
-                    // ]
-                    // console.log('data', data);
-
-                    // let arr = [{name: 'width', value: 300},{name: 'height', value: 100}];
-                    let obj = {};
-                    arrCalend.forEach(pair => {
-                        // console.log(pair);
-                        // obj[pair.field] = pair.calendarDay
-                        // console.log([pair.field]);
-                        // console.log(pair.calendarDay);
-                    })
-                    // console.log(obj);
-                    // console.log(dataObj);
                 })
-                arr.forEach(valFileObj => {
-                    // valFileObj.data.push(arrCalend); // валидний вариант
-                    valFileObj.data = arrCalend; 
-                    // let val = valFileObj.data.push(arrCalend);
-                    // console.log(val);
-                    // let [simpleArrData] = [...valFileObj.data];
-                    // console.log(simpleArrData);
-                    // valFileObj.data.push(simpleArrData);
-
-                    // obj = Object.assign(valFileObj, arrCalend);
-                    // console.log(obj);
-                    // for (const key in valFileObj) {
-                    //     console.log(valFileObj);
-                    // }
-                })
+                arr.forEach(valFileObj => valFileObj.data = arrCalend)
                 console.log('arrCalend', arrCalend);
                 console.log('arr', arr);
-
 
 let wrapElem = document.querySelector('.wrap');
 const productHTML = `
@@ -97,42 +43,8 @@ const productHTML = `
         </div>
     </div>
 `;
-{/* <div class="calendar_count">{calendarDay}</div>
-                <div class="calendar_count">{calendarDay}</div>
-                <div class="calendar_count">{calendarDay}</div>
-                <div class="calendar_count">{calendarDay}</div>
-                <div class="calendar_count">{calendarDay}</div> */}
-arr.map(item => {
-    // console.log(item);
-    // console.log(item.name);
-    // console.log(item.data);
-    // // console.log(item.data[0][0].field);
-    productConstruct(item)
-    // item.data.map(workDay => {
-    //     console.log(workDay.field)
-    //     productDays(workDay.field.slice(-1));
-    //     productCalendar(workDay.calendarDay);
-        
-    // });
-    // productDays(item.data.field)
-    // console.log(item.data.map(item => console.log(item)));
-    
-    // console.log(item.data[0][0].field)  // workDay1
-});
-arr.map(data => {
-console.log(data);
-// productDays(data.slice(-1))
-    for (const key in data) {
-        // if (Object.hasOwnProperty.call(data, key)) {
-        //     const element = data[key];
-        //     console.log(element);
-        // }
-        // console.log(key);
-        // console.log(data[key][field]);
-        // return console.log(data == data[key]);
-    }
-});
 
+arr.map(item => { productConstruct(item)});
 
 function productConstruct(file) {
     let _newProdHTML = productHTML;
@@ -141,7 +53,6 @@ function productConstruct(file) {
     _newProdHTML = _newProdHTML.replace('{file}', file.name);
     _newProdHTML = _newProdHTML.replace('{base}', file.base);
     _newProdHTML = _newProdHTML.replace('{day}', createDaysHTML(file.data));
-    // debugger
     _newProdHTML = _newProdHTML.replace('{calendarDay}', createCalendarHTML(file.data));
     // console.log(_newProdHTML);
     let prod = document.createElement('div');
@@ -150,53 +61,24 @@ function productConstruct(file) {
     wrapElem.append(prod);
 };
 
-// console.log(proDays.querySelectorAll('.'));
-
-function productDays(day) {
-    console.log(day);
-    let proDays = document.querySelector('.product_days');
-    let dayCount = document.createElement('div');
-    dayCount.classList.add('days_count');
-    dayCount.innerHTML = `  
-            <div class="days_count">day ${day}</div>
-    `;
-    proDays.append(dayCount);
-}
-function productCalendar(day) {
-    let proCalend = document.querySelector('.product_calendar');
-    let dayCount = document.createElement('div');
-    dayCount.classList.add('days_count');
-    dayCount.innerHTML = `  
-            <div class="calendar_count"> ${day}</div>
-    `;
-    proCalend.append(dayCount);
-}
-
 function createDaysHTML(wokDay) {
     let workDaysHTML = '';
     wokDay.forEach(workDay => {
-        console.log(workDay);
-        //     productDays(workDay.field.slice(-1));
-        //     productCalendar(workDay.calendarDay);
         workDaysHTML += `
-            <div class="days_count">day ${workDay.field.slice(-1)}</div>
-        `;
+                <div class="days_count">day ${workDay.field.slice(-1)}</div>
+            `;
         });
         return workDaysHTML;
-      
 }
 
 function createCalendarHTML(calendar) {
     let calendDayHTML = '';
-    console.log(calendar);
-    calendar.forEach(calendarDay => {
-        console.log(calendarDay.calendarDay[0]);
+    calendar.forEach(calenDay => {
         calendDayHTML += `
-            <div class="calendar_count"> ${calendarDay.calendarDay}</div>
-        
-        `;
-        return calendDayHTML;
+                <div class="calendar_count"> ${calenDay.calendarDay} </div>
+            `;
     });
+    return calendDayHTML;
 }
 
 
@@ -256,6 +138,27 @@ function createCalendarHTML(calendar) {
                 // console.log(obj);
             });
             // console.log(obj);
+
+            function productDays(day) {
+                console.log(day);
+                let proDays = document.querySelector('.product_days');
+                let dayCount = document.createElement('div');
+                dayCount.classList.add('days_count');
+                dayCount.innerHTML = `  
+                        <div class="days_count">day ${day}</div>
+                `;
+                proDays.append(dayCount);
+            }
+            function productCalendar(day) {
+                let proCalend = document.querySelector('.product_calendar');
+                let dayCount = document.createElement('div');
+                dayCount.classList.add('days_count');
+                dayCount.innerHTML = `  
+                        <div class="calendar_count"> ${day}</div>
+                `;
+                proCalend.append(dayCount);
+            }
+
 
 
 let obj1 = [
